@@ -10,7 +10,7 @@ pipeline {
 
             steps {
 
-                git 'https://github.com/your-repo/python-app.git'
+                git 'https://github.com/Juhi5863/Python_Jenkins.git'
 
             }
 
