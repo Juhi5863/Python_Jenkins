@@ -10,7 +10,7 @@ pipeline {
 
             steps {
 
-                git 'https://github.com/Juhi5863/Python_Jenkins.git'
+                git branch: 'main', url: 'https://github.com/Juhi5863/Python_Jenkins.git'
 
             }
 
