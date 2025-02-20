@@ -1,24 +1,38 @@
 pipeline {
     agent any
+    environment {
+        VENV_DIR = 'venv'
+    }
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/Juhi5863/Python_Jenkins.git'
+                git branch: 'main', url: 'https://github.com/Juhi5863/Python_Jenkins.git'
             }
         }
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'
+                sh '''
+                    python3 -m venv $VENV_DIR
+                    source $VENV_DIR/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                '''
             }
         }
         stage('Run Tests') {
             steps {
-                sh 'pytest tests/'
+                sh '''
+                    source $VENV_DIR/bin/activate
+                    pytest tests/
+                '''
             }
         }
         stage('Build Artifact') {
             steps {
-                sh 'python setup.py sdist'
+                sh '''
+                    source $VENV_DIR/bin/activate
+                    python setup.py sdist
+                '''
             }
         }
         stage('Archive Artifact') {
